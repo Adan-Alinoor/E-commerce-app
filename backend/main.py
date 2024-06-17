@@ -63,6 +63,13 @@ class Product(BaseModel):
     image: str
     categories: List[int]
 
+
+class UpdateProductImage(BaseModel):
+    new_image: str    
+    
+    
+    
+
 # FastAPI Endpoints
 @app.post("/categories/", response_model=Category)
 def create_category(category: Category):
@@ -136,3 +143,31 @@ def get_products():
         }
         products.append(product)
     return products
+
+# Pydantic model for updating product image
+class UpdateProductImage(BaseModel):
+    new_image: str
+
+
+
+
+# Database connection function
+def get_db_connection():
+    conn = sqlite3.connect('database.db')
+    conn.row_factory = sqlite3.Row
+    return conn
+
+# Pydantic model for updating product image
+class UpdateProductImage(BaseModel):
+    new_image: str
+# Update product image URL endpoint
+@app.put("/products/{product_id}")
+async def update_product_image(product_id: int, update: UpdateProductImage):
+    conn = get_db_connection()
+    cursor = conn.cursor()
+    cursor.execute("UPDATE products SET image = ? WHERE id = ?", (update.new_image, product_id))
+    conn.commit()
+    conn.close()
+    if cursor.rowcount == 0:
+        raise HTTPException(status_code=404, detail="Product not found")
+    return {"message": "Product image updated successfully"}

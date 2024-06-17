@@ -1,6 +1,25 @@
-import React from 'react';
+// // File: src/pages/HomePage.js
 
-import logo from '../assets/logo.png';
+// import React from 'react';
+// import {  Container } from 'react-bootstrap';
+
+// const HomePage = () => {
+//   return (
+ 
+//       <Container>
+//         <h1>Welcome to E-commerce App</h1>
+//         <p>
+//           Explore our wide range of products and start shopping!
+//         </p>
+//       </Container>
+   
+
+//   );
+// };
+
+// export default HomePage;
+
+import logo from '../assets/logo.png'
 import woman from '../assets/woman.png';
 import './Homepage.css';
 
